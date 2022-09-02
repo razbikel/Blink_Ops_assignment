@@ -40,20 +40,24 @@ const get_form_name = async () => {
 }
 
 choose_form = async () => {
-    let text= `choose a form: \n`
-    let forms_selection = forms.map((form, index) => {
-        return `${index + 1}. ${form.name}\n`
-    }).join("")
-    text += forms_selection
-    const properties = [
-        {
-          name: text,
-        }
-      ];
-      let form_index =  await askQuestion(properties)
-      form_index = parseInt(form_index) - 1;
-      return(forms[form_index]);
-    
+    if(forms.length === 0){
+        return undefined
+    }
+    else{
+        let text= `choose a form: \n`
+        let forms_selection = forms.map((form, index) => {
+            return `${index + 1}. ${form.name}\n`
+        }).join("")
+        text += forms_selection
+        const properties = [
+            {
+              name: text,
+            }
+          ];
+          let form_index =  await askQuestion(properties)
+          form_index = parseInt(form_index) - 1;
+          return(forms[form_index]);
+    }    
 }
 
 const fill_form = async () => {
@@ -75,19 +79,18 @@ const fill_form = async () => {
             answers.push(answer);
             index++;
         }
+
+        answers.forEach((answer, index) => {
+            let question = formObject.form[index]["question"]
+            result[question] = answer
+        })
+    
+        writeJsonForm(result, formObject.name);
+    
+        console.log('Thank you for filling the form! Here is the filled form:\n\n');
+        console.log(result);
+        console.log('\n\n The filled form is also generated as json file in the filledForms folder in the project root folder.')
     }
-
-    answers.forEach((answer, index) => {
-        let question = formObject.form[index]["question"]
-        result[question] = answer
-    })
-
-    writeJsonForm(result, formObject.name);
-
-    console.log('Thank you for filling the form! Here is the filled form:\n\n');
-    console.log(result);
-    console.log('\n\n The filled form is also generated as json file in the filledForms folder in the project root folder.')
-
 
 }
 
