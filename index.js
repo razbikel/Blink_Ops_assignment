@@ -26,7 +26,6 @@ const main = async () => {
 
     while(first_action === "1"){
         let formName = await get_form_name();
-        console.log('formPath', formName);
         readJsonForm(formName);
         first_action = await askQuestion(hello_properties)
     }

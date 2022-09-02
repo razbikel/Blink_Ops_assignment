@@ -7,10 +7,16 @@ let forms = []
 
 
 const readJsonForm = (formName) => {
-    let form_string = fs.readFileSync(path.join(__dirname, 'forms', formName));
-    let form = JSON.parse(form_string);
-    forms.push({ name: formName, form })
-    return form;
+    try{
+        let form_string = fs.readFileSync(path.join(__dirname, 'forms', formName));
+        let form = JSON.parse(form_string);
+        forms.push({ name: formName, form })
+        return form;
+    }
+    catch(error){
+        console.log(error.message);
+    }
+
 }
 
 const writeJsonForm = (filledForm, filename) => {
@@ -25,7 +31,12 @@ const get_form_name = async () => {
           `,
         }
       ];
-      return await askQuestion(properties)
+      try{
+        return await askQuestion(properties)
+      }
+      catch(error){
+        console.log('error', error)
+      }
 }
 
 choose_form = async () => {
