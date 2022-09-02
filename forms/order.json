@@ -1,0 +1,12 @@
+
+[
+    {
+        "question" : "Choose between pizza / burger."
+    },
+    {
+        "question" : "Choose toppings (the list of toppings is different for pizza / burger)"
+    },
+    {
+        "question" : "For a burger, choose cooking level (M, MW, WD)"
+    }
+]
